@@ -73,6 +73,9 @@ func (r *BookRepository) Update(id int, count int) error {
 	if result.Error != nil {
 		return result.Error
 	}
+	if count < 0 {
+		return fmt.Errorf("Alınacak kitap sayısı 1'den küçük olamaz")
+	}
 	book.StockCount -= count
 	resultSave := r.db.Save(book)
 	if resultSave.Error != nil {
